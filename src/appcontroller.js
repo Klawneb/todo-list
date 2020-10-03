@@ -10,6 +10,10 @@ export class AppController {
     getProject(index) {
         return this.projects[index];
     }
+
+    removeProject(index) {
+        this.projects.splice(index, 1);
+    }
 }
 
 class Project {
@@ -46,6 +50,10 @@ class Todo {
 
     toggleComplete() {
         this.complete = !this.complete;
+    }
+
+    getNumRemainingTasks() {
+        return this.taskList.length;
     }
 }
 
