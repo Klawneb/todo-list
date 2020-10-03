@@ -18,8 +18,8 @@ class Project {
         this.todoList = [];
     }
 
-    addTodo(title, description, dueDate, priority, complete) {
-        this.todoList.push(new Todo(title, description, dueDate, priority, complete));
+    addTodo(title, description, dueDate, complete) {
+        this.todoList.push(new Todo(title, description, dueDate,  complete));
     }
 
     getTodo(index) {
@@ -28,11 +28,10 @@ class Project {
 }
 
 class Todo {
-    constructor(title, description, dueDate, priority, complete) {
+    constructor(title, description, dueDate, complete) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.priority = priority;
         this.complete = complete;
         this.taskList = [];
     }
