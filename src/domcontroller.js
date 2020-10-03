@@ -18,7 +18,7 @@ export class DOMController {
 
     createProjectInputForm() {
         let inputForm = document.createElement("div");
-        inputForm.classList.add("input-form");
+        inputForm.classList.add("focus-view");
 
         let projectTitle = document.createElement("h2");
         projectTitle.textContent = "Project Title:"
@@ -31,8 +31,8 @@ export class DOMController {
         addProjectButton.addEventListener("click", () => {
             if (projectTitleInput.value) {
                 this.app.addProject(projectTitleInput.value);
-            this.renderProjects()
-            this.formContainer.innerHTML = "";
+                this.renderProjects()
+                this.formContainer.innerHTML = "";
             } else {
                 alert("Please enter a value");
             }
@@ -44,7 +44,7 @@ export class DOMController {
 
     createTodoInputForm(project) {
         let inputForm = document.createElement("div");
-        inputForm.classList.add("input-form");
+        inputForm.classList.add("focus-view");
 
         let todoName = document.createElement("h2");
         todoName.textContent = "Todo name:"
@@ -117,22 +117,50 @@ export class DOMController {
         let todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
 
+        let todoHeader = document.createElement("div");
+        todoHeader.classList.add("todo-card-header");
+
         let todoTitle = document.createElement("h3");
         todoTitle.textContent = todo.title;
-
-        let todoDescription = document.createElement("p");
-        todoDescription.textContent = todo.description;
 
         let todoDate = document.createElement("p");
         todoDate.textContent = format(todo.dueDate, "do MMM yy");
 
+        let todoDescription = document.createElement("p");
+        todoDescription.textContent = todo.description;
+
+        let todoComplete = document.createElement("p");
+        todoComplete.textContent = "Uncompleted";
+
         let tasksRemaining = document.createElement("p");
         tasksRemaining.textContent = `${todo.getNumRemainingTasks()} tasks remaining`;
 
-        todoCard.append(todoTitle, todoDescription, todoDate, tasksRemaining);
+        let todoFooter = document.createElement("div");
+        todoFooter.classList.add("todo-card-footer");
+
+        todoHeader.append(todoTitle, todoDate)
+        todoFooter.append(todoComplete, tasksRemaining)
+        todoCard.append(todoHeader, todoDescription, todoFooter);
+
         return todoCard;
     }
-    
+
+    createTodoView(todo) {
+        let todoView = document.createElement("div");
+
+        let todoHeader = document.createElement("div");
+        todoHeader.classList.add("todo-view-header");
+        
+        let todoTitle = document.createElement("h2");
+        todoTitle.textContent = todo.title;
+
+        let todoDate = document.createElement("p");
+        todoDate.textContent = format(todo.date, "do MMM yy");
+
+        let todoDescription = document.createElement("p");
+        todoDescription.textContent = todo.description;
+    }
+
     start() {
         this.newProjectButton.addEventListener("click", () => {
             this.formContainer.appendChild(this.createProjectInputForm());
