@@ -15,3 +15,29 @@ html, body {
 #header > * {
     margin: 0px 5px;
 }
+
+#content {
+    display: flex;
+    padding: 10px;
+    overflow: auto;
+    height: 100%;
+}
+
+.project-card {
+    border: 2px solid black;
+    min-width: 15%;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.project-header {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.todo-container {
+    flex-grow: 1;
+}
