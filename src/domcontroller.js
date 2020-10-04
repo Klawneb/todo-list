@@ -141,12 +141,23 @@ export class DOMController {
         todoHeader.append(todoTitle, todoDate)
         todoFooter.append(todoComplete, tasksRemaining)
         todoCard.append(todoHeader, todoDescription, todoFooter);
+        
+        todoCard.addEventListener("click", () => {
+            this.formContainer.appendChild(this.createTodoView(todo));
+        })
 
         return todoCard;
     }
 
     createTodoView(todo) {
         let todoView = document.createElement("div");
+        todoView.classList.add("focus-view");
+
+        let todoComplete = document.createElement("input");
+        todoComplete.type = "checkbox";
+        todoComplete.addEventListener("change", () => {
+            todo.toggleComplete();
+        })
 
         let todoHeader = document.createElement("div");
         todoHeader.classList.add("todo-view-header");
@@ -155,10 +166,79 @@ export class DOMController {
         todoTitle.textContent = todo.title;
 
         let todoDate = document.createElement("p");
-        todoDate.textContent = format(todo.date, "do MMM yy");
+        todoDate.textContent = format(todo.dueDate, "do MMM yy");
+
+        todoHeader.append(todoTitle, todoDate);
+
+        let todoCenter = document.createElement("div");
+        todoCenter.classList.add("todo-view-center");
 
         let todoDescription = document.createElement("p");
         todoDescription.textContent = todo.description;
+
+        let newTaskButton = document.createElement("button");
+        newTaskButton.textContent = "New Task";
+        newTaskButton.addEventListener("click", () => {
+            this.formContainer.appendChild(this.createTaskInputForm(todo));
+        })
+
+        let todoTasklist = document.createElement("div");
+        todoTasklist.classList.add("todo-view-tasklist");
+        todoTasklist.appendChild(newTaskButton);
+        todo.taskList.forEach((task) => {
+            todoTasklist.appendChild(this.createTaskCard(task));
+        })
+        
+        todoCenter.append(todoDescription, todoTasklist);
+        todoView.append(todoHeader, todoCenter);
+        
+        return todoView;
+    }
+
+    createTaskCard(task) {
+        let taskCard = document.createElement("div");
+        taskCard.classList.add("task-card");
+
+        let taskCheckbox = document.createElement("input");
+        taskCheckbox.type = "checkbox";
+        taskCheckbox.addEventListener("change", () => {
+            task.toggleComplete();
+        })
+
+        let taskTitle = document.createElement("p");
+        taskTitle.textContent = task.title;
+
+        let removeTaskButton = document.createElement("button");
+        removeTaskButton.textContent = "Remove task";
+        removeTaskButton.addEventListener("click", () => {
+            
+        })
+
+        taskCard.append(taskCheckbox, taskTitle, removeTaskButton);
+        
+        return taskCard;
+    }
+
+    createTaskInputForm(todo) {
+        let inputForm = document.createElement("div");
+        inputForm.classList.add("focus-view");
+
+        let taskTitle = document.createElement("h2");
+        taskTitle.textContent = "Task Title:"
+
+        let taskTitleInput = document.createElement("input");
+
+        let addTaskButton = document.createElement("button");
+
+        addTaskButton.textContent = "Add Task";
+        addTaskButton.addEventListener("click", () => {
+            todo.addTask(taskTitleInput.value);
+            this.formContainer.innerHTML = "";
+            this.formContainer.appendChild(this.createTodoView(todo));
+        });
+
+        inputForm.append(taskTitle, taskTitleInput, addTaskButton);
+        return inputForm;
     }
 
     start() {
