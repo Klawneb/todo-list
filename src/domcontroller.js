@@ -185,8 +185,8 @@ export class DOMController {
         let todoTasklist = document.createElement("div");
         todoTasklist.classList.add("todo-view-tasklist");
         todoTasklist.appendChild(newTaskButton);
-        todo.taskList.forEach((task) => {
-            todoTasklist.appendChild(this.createTaskCard(task));
+        todo.taskList.forEach((task, index) => {
+            todoTasklist.appendChild(this.createTaskCard(task, todo, index));
         })
         
         todoCenter.append(todoDescription, todoTasklist);
@@ -195,7 +195,7 @@ export class DOMController {
         return todoView;
     }
 
-    createTaskCard(task) {
+    createTaskCard(task, todo, index) {
         let taskCard = document.createElement("div");
         taskCard.classList.add("task-card");
 
@@ -211,7 +211,9 @@ export class DOMController {
         let removeTaskButton = document.createElement("button");
         removeTaskButton.textContent = "Remove task";
         removeTaskButton.addEventListener("click", () => {
-            
+            todo.removeTask(index);
+            this.formContainer.innerHTML = "";
+            this.formContainer.appendChild(this.createTodoView(todo));
         })
 
         taskCard.append(taskCheckbox, taskTitle, removeTaskButton);
