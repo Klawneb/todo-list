@@ -48,6 +48,10 @@ class Todo {
         return this.taskList[index];
     }
 
+    removeTask(index) {
+        this.taskList.splice(index, 1);
+    }
+
     toggleComplete() {
         this.complete = !this.complete;
     }
