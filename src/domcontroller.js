@@ -38,6 +38,8 @@ export class DOMController {
             }
         });
 
+        
+
         inputForm.append(projectTitle, projectTitleInput, addProjectButton);
         return inputForm;
     }
@@ -243,9 +245,22 @@ export class DOMController {
         return inputForm;
     }
 
+    addFormListener() {
+        document.addEventListener("click", this.removeForm.bind(this))
+    }
+
+    removeForm(e) {
+        if (this.formContainer.childNodes.length != 0) {
+            if (!this.formContainer.lastChild.contains(e.target)) {
+                console.log("click outisde")
+            }
+        }
+    }
+
     start() {
         this.newProjectButton.addEventListener("click", () => {
             this.formContainer.appendChild(this.createProjectInputForm());
         })
+        this.addFormListener();
     }
 }
