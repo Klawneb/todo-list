@@ -38,8 +38,6 @@ export class DOMController {
             }
         });
 
-        
-
         inputForm.append(projectTitle, projectTitleInput, addProjectButton);
         return inputForm;
     }
@@ -105,8 +103,9 @@ export class DOMController {
 
         let newTodoButton = document.createElement("button");
         newTodoButton.textContent = "New Todo";
-        newTodoButton.addEventListener("click", () => {
+        newTodoButton.addEventListener("click", (e) => {
             this.formContainer.appendChild(this.createTodoInputForm(project));
+            e.stopPropagation();
         })
 
         projectHeader.append(projectTitle, removeButton);
@@ -144,8 +143,9 @@ export class DOMController {
         todoFooter.append(todoComplete, tasksRemaining)
         todoCard.append(todoHeader, todoDescription, todoFooter);
         
-        todoCard.addEventListener("click", () => {
+        todoCard.addEventListener("click", (e) => {
             this.formContainer.appendChild(this.createTodoView(todo));
+            e.stopPropagation();
         })
 
         return todoCard;
@@ -180,8 +180,9 @@ export class DOMController {
 
         let newTaskButton = document.createElement("button");
         newTaskButton.textContent = "New Task";
-        newTaskButton.addEventListener("click", () => {
+        newTaskButton.addEventListener("click", (e) => {
             this.formContainer.appendChild(this.createTaskInputForm(todo));
+            e.stopPropagation();
         })
 
         let todoTasklist = document.createElement("div");
@@ -216,7 +217,7 @@ export class DOMController {
             todo.removeTask(index);
             this.formContainer.innerHTML = "";
             this.formContainer.appendChild(this.createTodoView(todo));
-        })
+        });
 
         taskCard.append(taskCheckbox, taskTitle, removeTaskButton);
         
@@ -235,10 +236,11 @@ export class DOMController {
         let addTaskButton = document.createElement("button");
 
         addTaskButton.textContent = "Add Task";
-        addTaskButton.addEventListener("click", () => {
+        addTaskButton.addEventListener("click", (e) => {
             todo.addTask(taskTitleInput.value);
             this.formContainer.innerHTML = "";
             this.formContainer.appendChild(this.createTodoView(todo));
+            e.stopPropagation()
         });
 
         inputForm.append(taskTitle, taskTitleInput, addTaskButton);
@@ -246,20 +248,19 @@ export class DOMController {
     }
 
     addFormListener() {
-        document.addEventListener("click", this.removeForm.bind(this))
-    }
-
-    removeForm(e) {
-        if (this.formContainer.childNodes.length != 0) {
-            if (!this.formContainer.lastChild.contains(e.target)) {
-                console.log("click outisde")
+        document.addEventListener("click", (e) => {
+            if (this.formContainer.childNodes.length != 0) {
+                if (!this.formContainer.lastChild.contains(e.target)) {
+                    this.formContainer.lastChild.remove();
+                }
             }
-        }
+        })
     }
 
     start() {
-        this.newProjectButton.addEventListener("click", () => {
+        this.newProjectButton.addEventListener("click", (event) => {
             this.formContainer.appendChild(this.createProjectInputForm());
+            event.stopPropagation();
         })
         this.addFormListener();
     }
