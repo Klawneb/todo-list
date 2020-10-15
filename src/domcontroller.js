@@ -14,6 +14,27 @@ export class DOMController {
         this.app.projects.forEach((project, index) => {
             this.container.appendChild(this.createProjectCard(project, index))
         });
+        this.saveProjects();
+    }
+
+    saveProjects() {
+        localStorage.setItem("projects", JSON.stringify(this.app.projects));
+    }
+
+    loadProjects() {
+        let storedProjects = JSON.parse(localStorage.getItem("projects"));
+        if (storedProjects != null) {
+            storedProjects.forEach((project, i) => {
+                this.app.addProject(project.title)
+                project.todoList.forEach((todo) => {
+                    this.app.getProject(i).addTodo(todo.title, todo.description, new Date(todo.dueDate), todo.complete);
+                    todo.taskList.forEach((task, j) => {
+                        this.app.getProject(i).getTodo(j).addTask(task.title);
+                    })
+                })
+                console.log(project);
+            })
+        }
     }
 
     createProjectInputForm() {
@@ -239,6 +260,7 @@ export class DOMController {
         addTaskButton.addEventListener("click", (e) => {
             todo.addTask(taskTitleInput.value);
             this.formContainer.innerHTML = "";
+            this.renderProjects();
             this.formContainer.appendChild(this.createTodoView(todo));
             e.stopPropagation()
         });
@@ -263,5 +285,7 @@ export class DOMController {
             event.stopPropagation();
         })
         this.addFormListener();
+        this.loadProjects();
+        this.renderProjects();
     }
 }
