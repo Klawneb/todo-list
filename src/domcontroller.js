@@ -26,13 +26,12 @@ export class DOMController {
         if (storedProjects != null) {
             storedProjects.forEach((project, i) => {
                 this.app.addProject(project.title)
-                project.todoList.forEach((todo) => {
+                project.todoList.forEach((todo, j) => {
                     this.app.getProject(i).addTodo(todo.title, todo.description, new Date(todo.dueDate), todo.complete);
-                    todo.taskList.forEach((task, j) => {
+                    todo.taskList.forEach((task) => {
                         this.app.getProject(i).getTodo(j).addTask(task.title);
                     })
                 })
-                console.log(project);
             })
         }
     }
@@ -238,6 +237,7 @@ export class DOMController {
             todo.removeTask(index);
             this.formContainer.innerHTML = "";
             this.formContainer.appendChild(this.createTodoView(todo));
+            this.renderProjects();
         });
 
         taskCard.append(taskCheckbox, taskTitle, removeTaskButton);
