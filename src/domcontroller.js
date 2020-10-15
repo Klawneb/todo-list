@@ -107,8 +107,8 @@ export class DOMController {
         let projectTitle = document.createElement("h2");
         projectTitle.textContent = project.title;
 
-        let removeButton = document.createElement("button");
-        removeButton.textContent = "Remove project";
+        let removeButton = document.createElement("p");
+        removeButton.textContent = "X";
         removeButton.addEventListener("click", () => {
             this.app.removeProject(index);
             this.renderProjects();
