@@ -6,14 +6,20 @@ html, body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+body {
+    background-image: url(https://mocah.org/uploads/posts/5372908-sunset-sunrise-mountain-fog-mist-cloud-landscape-pink-chiang-mai-sky-pink-rolling-hill-free-images.jpg);
+    background-size: 100%;
+}
+
 #header {
     display: flex;
     padding: 5px;
     align-items: center;
     border-bottom: 2px solid black;
+    background-color: rgba(204, 204, 204, 0.5);
 }
 
-#header > * {
+#header * {
     margin: 0px 5px;
 }
 
@@ -25,26 +31,36 @@ html, body {
 }
 
 .project-card {
-    background-color: lightgray;
+    background-color: rgba(204, 204, 204, 0.75);
     padding: 5px;
     min-width: 15%;
     margin: 10px;
     display: flex;
     flex-direction: column;
     align-self: flex-start;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .project-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+}
+
+.project-header h2 {
+    margin: 0;
 }
 
 .project-header p {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
     position: relative;
-    top: -20px;
-    right: 10px;
+    top: -5px;
 }
 
 .todo-container {
@@ -70,4 +86,80 @@ html, body {
 
 .focus-view > * {
     margin: 5px 0;
+}
+
+.todo-card {
+    background-color: #DDDDDD;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.todo-card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo-card-header * {
+    margin: 0;
+}
+
+.todo-card-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+}
+
+.todo-card-footer * {
+    margin: 0;
+}
+
+.todo-view-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.todo-view-header * {
+    margin: 0;
+}
+
+.todo-view-center {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.todo-view-center button {
+    width: 100%;
+}
+
+.todo-view-description {
+    margin: 5px;
+    background-color: #eeeeee;
+    width: 50%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.todo-view-tasklist {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 5px;
+}
+
+.task-card {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    justify-content: space-between;
+    background-color: #eeeeee;
+    margin: 5px;
+    padding: 5px;
+}
+
+.task-card button {
+    width: auto;
 }
